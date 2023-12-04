@@ -17,7 +17,7 @@ function quicksort(arr){
     return[...quicksort(left),pivot,...quicksort(right)]
 }
 
-const unsortedArray = [64, 25, 12, 22, 11];
+const unsortedArray = [12,10,7,20,49]
 const sortedArray = quicksort(unsortedArray);
 console.log(sortedArray);
 

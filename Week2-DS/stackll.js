@@ -1,4 +1,4 @@
-// stack using linked list
+// stack 
 
 class Node{
     constructor(data){
@@ -9,54 +9,65 @@ class Node{
 
 class StackLinkedList{
     constructor(){
-        this.top = null;
-        this.size =0;
+       this.top = null;
+       this.size =0;
     }
-    
-    // push
-    push(data){
-        let newNode = new Node(data)
-        newNode.next = this.top
-        this.top= newNode;
-        this.size++;
-    }
-    
-    pop(){
-        if(this.isEmpty()){
-            return "list is already empty"
-        }
-        const items  =this.top.data;
-        this.top = this.top.next;
-        this.size--;
-        return items;
-    }
-    
-    
     isEmpty(){
         return this.size==0;
     }
     
-    print() {
-        let result = "";
-        let temp = this.top;
-        while (temp !== null){
-            result += temp.data + " ";
-            temp = temp.next;
+    push(data){
+        let newNode = new Node(data)
+            newNode.next = this.top;
+            this.top = newNode;
+            this.size++;
+        
+    }
+    pop(){
+        if(this.isEmpty()){
+            return "stack underFlow"
         }
-        console.log(result);
+        this.top=this.top.next 
+        this.size--;
+    }
+    peek(){
+        return this.top.data
+    }
+   stackSize(){
+        return this.size;
+    }
+    
+    print(){
+    let result = ""
+    let temp = this.top;
+    while(temp){
+        result += `${temp.data}`
+        if(temp.next){
+            result += " , "
+        }
+      temp=temp.next;
+    }
+    return result;
+    
     }
 }
 
-let list = new StackLinkedList();
 
-list.push(10);
-list.push(17);
-list.push(20);
+let list = new StackLinkedList()
+
+
+list.push(36)
+list.push(18)
+list.push(4)
+list.push(30)
+list.push(19)
+list.push(7)
+list.push(27)
+
+
 list.pop()
-console.log(list.size); 
-list.print();
-
-
-
+console.log("peek",list.peek())
+console.log("size of the stack",list.stackSize())
+console.log(list.print())
 
 
