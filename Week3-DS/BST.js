@@ -82,23 +82,52 @@ insertNode(root, newNode) {
     }
   }
 
-  levelOrder(){
-    let queue = []
-    queue.push(this.root);
-    while(queue.length){
-        const current = queue.shift()
-        console.log(current.data)
-    if(current.left){
-        queue.push(current.left)
-    }
-    if(current.right){
-        queue.push(current.right)
-    }
+  min(root){
+    if(!root.left){
+        return root.data
+    }else{
+        return this.min(root.left)
     }
   }
 
-
+  max(root){
+    if(!root.right){
+        return root.data
+  }else{
+    return this.max(root.right)
+  }
+  }
+  
+  
+  delete(data) {
+        this.root = this.deleteNode(this.root, data);
+    }
+  
+   deleteNode(root, data) {
+        if (root === null) {
+            return root;
+        }
+        if (data < root.data) {
+            root.left = this.deleteNode(root.left, data);
+        } else if (data > root.data) {
+            root.right = this.deleteNode(root.right, data);
+        } else {
+            if (!root.left && !root.right) {
+                return null;
+            }
+            if (!root.left) {
+                return root.right;
+            }
+            if (!root.right) {
+                return root.left;
+            }
+            root.data = this.min(root.right);
+            root.right = this.deleteNode(root.right, root.data);
+        }
+        return root;
+    }
 }
+
 
 
 let bst = new BinnarySearchTree()
@@ -114,10 +143,15 @@ bst.insert(7);
 console.log(bst.search(bst.root,6))
 console.log(bst.search(bst.root,3))
 
+console.log("min",bst.min(bst.root))
+console.log("max",bst.max(bst.root))
+
 
 // bst.inOrder(bst.root)
 // bst.preOreder(bst.root)
 // bst.postOrder(bst.root)
-bst.levelOrder()
 
+
+bst.delete(10)
+console.log(bst.search(bst.root,10))
 console.log("Is BST Empty:", bst.isEmpty()); 
